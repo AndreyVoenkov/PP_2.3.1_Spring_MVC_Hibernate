@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -64,5 +65,21 @@ public class User {
 
    public void setEmail(String email) {
       this.email = email;
+   }
+
+   @Override
+   public final boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof User user)) return false;
+       return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email);
+   }
+
+   @Override
+   public int hashCode() {
+      int result = Objects.hashCode(id);
+      result = 31 * result + Objects.hashCode(firstName);
+      result = 31 * result + Objects.hashCode(lastName);
+      result = 31 * result + Objects.hashCode(email);
+      return result;
    }
 }
